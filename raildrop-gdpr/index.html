@@ -1,79 +1,876 @@
+
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RailDrop – Privacy Policy</title>
-<style>body{font-family:system-ui,sans-serif;max-width:44rem;margin:2.5rem auto;padding:0 1rem;line-height:1.55;color:#1c2330}h1,h2{line-height:1.2}h2{margin-top:2rem}a{color:#0b6bcb}</style>
-</head><body>
-<h1>RailDrop – Privacy Policy</h1>
-<p><em>Last updated: 5 October 2026</em></p>
-<p>RailDrop is a game developed by <strong>Triquinete</strong> (“we”, “us”). This policy explains what information is collected when you play RailDrop on Android, and the choices you have.</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090b0d">
+  <meta name="description" content="RailDrop privacy policy. Learn how Triquinete handles game data, advertising, consent and purchases.">
+  <title>RailDrop — Privacy Policy | Triquinete</title>
 
-<h2>Summary</h2>
-<ul>
-<li>We do not ask for, collect or store your name, email address or any account.</li>
-<li>Your game progress stays on your device.</li>
-<li>RailDrop shows ads through <strong>Google AdMob</strong>. AdMob may collect device information to serve and measure ads. In the EEA, the UK and Switzerland, we ask for your consent first.</li>
-<li>The optional “Remove Ads” purchase is processed by <strong>Google Play</strong>. We never see your payment details.</li>
-</ul>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b0d;
+      --surface: #101418;
+      --text: #f3f6f8;
+      --text-soft: #a4adb5;
+      --text-faint: #707a83;
+      --line: rgba(255,255,255,.10);
+      --line-strong: rgba(255,255,255,.17);
+      --accent: #ff6a1a;
+      --accent-bright: #ff8b45;
+      --accent-soft: rgba(255,106,26,.10);
+      --max-width: 1180px;
+      --article-width: 780px;
+    }
 
-<h2>Information stored on your device</h2>
-<p>RailDrop saves your settings (sound, haptics, night mode), scores, level progress and chosen ball finish in a file on your device. This data is never sent to us. It is deleted when you uninstall the app or clear its data.</p>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-<h2>Advertising (Google AdMob)</h2>
-<p>RailDrop shows two kinds of ads:</p>
-<ul>
-<li>full-screen ads at natural breaks, such as after a game ends;</li>
-<li>optional reward videos, which you choose to watch (for example, to continue a level).</li>
-</ul>
-<p>To provide these ads, Google AdMob may collect and process:</p>
-<ul>
-<li>your device’s advertising ID;</li>
-<li>your IP address and approximate location derived from it;</li>
-<li>device and app information, such as model, operating system and language;</li>
-<li>interactions with ads, such as views and clicks;</li>
-<li>diagnostic data.</li>
-</ul>
-<p>Depending on your consent and location, this information may be used to show personalised ads, or only non-personalised (limited) ads.</p>
-<p>Google’s handling of this data is described in:</p>
-<ul>
-<li><a href="https://policies.google.com/technologies/partner-sites">How Google uses information from apps that use its services</a></li>
-<li><a href="https://policies.google.com/privacy">Google Privacy Policy</a></li>
-</ul>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 5%,
+          rgba(255,106,26,.075),transparent 32rem),
+        linear-gradient(180deg,#0b0e11,#07090b);
+      font-family:
+        Inter,"SF Pro Text",-apple-system,
+        BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
 
-<h2>Your consent choices (GDPR / UK GDPR)</h2>
-<p>If you are in the European Economic Area, the United Kingdom or Switzerland, RailDrop shows a consent message (Google’s User Messaging Platform) the first time you play. You can:</p>
-<ul>
-<li>accept personalised advertising;</li>
-<li>reject it, in which case you may still see non-personalised (limited) ads;</li>
-<li>manage your choices by purpose and partner.</li>
-</ul>
-<p>You can change your choice at any time in <strong>Settings → Privacy</strong> inside the game. The game works the same whatever you choose. Declining never limits access to any part of the game.</p>
-<p>You can also reset or delete your advertising ID in your Android settings (<strong>Settings → Google → Ads</strong>, or <strong>Settings → Privacy → Ads</strong> on some devices).</p>
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom,black,transparent 75%);
+    }
 
-<h2>US state privacy rights</h2>
-<p>If you live in a US state with consumer privacy laws (such as California), you can opt out of the “sale” or “sharing” of personal information for targeted advertising through the privacy message shown in the app, or in <strong>Settings → Privacy</strong>.</p>
+    a {
+      color: var(--accent-bright);
+      text-decoration: none;
+      text-underline-offset: 4px;
+    }
 
-<h2>In-app purchase (“Remove Ads”)</h2>
-<p>The optional one-time “Remove Ads” purchase is handled entirely by <strong>Google Play Billing</strong>. Google processes your payment under its own privacy policy. We only receive confirmation that the purchase belongs to your Google account, so your purchase can be restored on new devices. We never receive your card or payment details.</p>
+    a:hover { text-decoration: underline; }
 
-<h2>Children</h2>
-<p>RailDrop is not directed at children under 13, and we do not knowingly collect personal information from children.</p>
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+      border-radius: 2px;
+    }
 
-<h2>Data sharing and selling</h2>
-<p>We do not sell personal information, and we do not share it with anyone except as described above (Google AdMob for ads, Google Play for purchases).</p>
+    .shell {
+      width: min(calc(100% - 40px),var(--max-width));
+      margin: 0 auto;
+    }
 
-<h2>Data retention and deletion</h2>
-<ul>
-<li>We hold no personal data about you on any server, so there is nothing for us to delete.</li>
-<li>To delete your local game data, uninstall RailDrop or clear its data in Android settings.</li>
-<li>For data held by Google, use your Google Account controls: <a href="https://myaccount.google.com">myaccount.google.com</a></li>
-</ul>
+    header {
+      position: relative;
+      z-index: 2;
+      border-bottom: 1px solid var(--line);
+    }
 
-<h2>Your rights</h2>
-<p>Depending on where you live, you may have the right to access, correct, delete or object to the processing of your personal data, and to complain to your data protection authority (in Spain, the Agencia Española de Protección de Datos, <a href="https://www.aepd.es">www.aepd.es</a>). Because we do not hold personal data ourselves, most requests concern Google’s services and are best made through Google. You can always contact us with questions.</p>
+    .nav {
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
 
-<h2>Changes to this policy</h2>
-<p>We may update this policy, for example when the app changes. The date at the top shows the latest version.</p>
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .95rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
 
-<h2>Contact</h2>
-<p>Triquinete – <a href="mailto:triquinete@gmail.com">triquinete@gmail.com</a></p>
-</body></html>
+    .brand:hover { text-decoration: none; }
+
+    .brand-mark {
+      position: relative;
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      background: linear-gradient(145deg,#242a30,#111519);
+      clip-path: polygon(0 0,100% 0,100% 70%,70% 100%,0 100%);
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      background: var(--accent);
+      clip-path: polygon(0 0,100% 0,100% 40%,40% 100%,0 100%);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-label, .mono {
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .73rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .nav-label { color: var(--text-faint); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--text-soft);
+      font-size: .85rem;
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+
+    main {
+      position: relative;
+      padding-top: 72px;
+      padding-bottom: 110px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      color: var(--accent-bright);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(255,106,26,.45);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 920px;
+      font-size: clamp(3rem,7vw,6.4rem);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 850;
+    }
+
+    h1 span {
+      display: block;
+      margin-top: 8px;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+
+    .hero-intro {
+      max-width: 720px;
+      margin: 32px 0 0;
+      color: var(--text-soft);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .hero-intro strong { color: var(--text); }
+
+    .metadata {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 44px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metadata-item { min-width: 130px; }
+
+    .metadata-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .66rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .metadata-value {
+      display: block;
+      font-size: .9rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .document-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0,1fr);
+      gap: 62px;
+      margin-top: 70px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 28px;
+    }
+
+    .sidebar-heading {
+      margin: 0 0 20px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-left: 1px solid var(--line);
+    }
+
+    .toc a {
+      padding: 9px 16px;
+      margin-left: -1px;
+      color: var(--text-faint);
+      border-left: 2px solid transparent;
+      font-size: .81rem;
+      line-height: 1.45;
+      transition: color .2s,border-color .2s,background .2s;
+    }
+
+    .toc a:hover,
+    .toc a.active {
+      color: var(--text);
+      text-decoration: none;
+      border-left-color: var(--accent);
+      background: rgba(255,106,26,.035);
+    }
+
+    .policy {
+      width: 100%;
+      max-width: var(--article-width);
+      min-width: 0;
+    }
+
+    .policy section {
+      padding-bottom: 36px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 32px;
+    }
+
+    .policy section:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .section-number {
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .69rem;
+      letter-spacing: .08em;
+    }
+
+    h2 {
+      margin: 0 0 19px;
+      font-size: clamp(1.4rem,2.7vw,1.85rem);
+      line-height: 1.25;
+      letter-spacing: -.035em;
+      font-weight: 750;
+    }
+
+    .policy p {
+      margin: 0 0 17px;
+      color: var(--text-soft);
+      font-size: .965rem;
+      line-height: 1.85;
+    }
+
+    .policy p:last-child { margin-bottom: 0; }
+
+    .policy strong {
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .policy ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .policy li {
+      position: relative;
+      margin-bottom: 14px;
+      padding-left: 24px;
+      color: var(--text-soft);
+      font-size: .965rem;
+      line-height: 1.75;
+    }
+
+    .policy li::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: 12px;
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+    }
+
+    .summary-box {
+      padding: 30px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.035),
+        rgba(255,255,255,.008)
+      );
+    }
+
+    .summary-box ul { margin-top: 6px; }
+    .summary-box li:last-child { margin-bottom: 0; }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .contact-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .contact-card a {
+      font-size: 1rem;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-arrow {
+      color: var(--accent);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 42px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-brand {
+      font-size: clamp(1.8rem,4vw,3.3rem);
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -.055em;
+    }
+
+    .footer-meta {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .68rem;
+      line-height: 1.9;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 900px) {
+      .document-layout {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+
+      .sidebar { position: static; }
+
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-left: 0;
+      }
+
+      .toc a {
+        margin-left: 0;
+        padding: 7px 11px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .toc a:hover,.toc a.active {
+        border: 1px solid var(--accent);
+      }
+
+      .policy { max-width: 100%; }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(calc(100% - 28px),var(--max-width));
+      }
+
+      .nav { min-height: 72px; }
+      .nav-label { display: none; }
+
+      main {
+        padding-top: 49px;
+        padding-bottom: 70px;
+      }
+
+      h1 { font-size: clamp(2.65rem,12vw,4.3rem); }
+      .hero-intro { font-size: 1rem; }
+
+      .metadata { gap: 22px; }
+      .document-layout { margin-top: 48px; }
+
+      .summary-box { padding: 20px; }
+      .contact-card { padding: 20px; }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .footer-meta { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *,*::before,*::after { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="brand" href="/" aria-label="Triquinete homepage">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Triquinete</span>
+      </a>
+
+      <div class="nav-right">
+        <span class="nav-label">Legal / Privacy</span>
+        <a href="/" class="back-link">
+          <span aria-hidden="true">←</span> Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div class="eyebrow">Legal documentation / RailDrop</div>
+
+    <h1>
+      Privacy
+      <span>Policy.</span>
+    </h1>
+
+    <p class="hero-intro">
+      RailDrop is a game developed by
+      <strong>Triquinete</strong> (“we”, “us”).
+      This policy explains what information is collected when
+      you play RailDrop on Android, and the choices you have.
+    </p>
+
+    <div class="metadata">
+      <div class="metadata-item">
+        <span class="metadata-label">Application</span>
+        <span class="metadata-value">RailDrop</span>
+      </div>
+
+      <div class="metadata-item">
+        <span class="metadata-label">Last updated</span>
+        <span class="metadata-value">
+          <time datetime="2026-10-05">5 October 2026</time>
+        </span>
+      </div>
+
+      <div class="metadata-item">
+        <span class="metadata-label">Platform</span>
+        <span class="metadata-value">Android</span>
+      </div>
+
+      <div class="metadata-item">
+        <span class="metadata-label">Developer</span>
+        <span class="metadata-value">Triquinete</span>
+      </div>
+    </div>
+
+    <div class="document-layout">
+      <aside class="sidebar" aria-label="Policy navigation">
+        <h2 class="sidebar-heading">Contents / Index</h2>
+
+        <nav class="toc">
+          <a href="#summary">Summary</a>
+          <a href="#local-data">Device storage</a>
+          <a href="#advertising">Advertising</a>
+          <a href="#consent">GDPR consent</a>
+          <a href="#us-rights">US privacy rights</a>
+          <a href="#purchases">In-app purchases</a>
+          <a href="#children">Children</a>
+          <a href="#sharing">Data sharing</a>
+          <a href="#retention">Retention & deletion</a>
+          <a href="#rights">Your rights</a>
+          <a href="#changes">Policy changes</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </aside>
+
+      <article class="policy">
+
+        <section id="summary">
+          <div class="section-number">01 / OVERVIEW</div>
+          <h2>Summary</h2>
+
+          <div class="summary-box">
+            <ul>
+              <li>
+                We do not ask for, collect or store your name,
+                email address or any account.
+              </li>
+              <li>
+                Your game progress stays on your device.
+              </li>
+              <li>
+                RailDrop shows ads through
+                <strong>Google AdMob</strong>.
+                AdMob may collect device information to serve and
+                measure ads. In the EEA, the UK and Switzerland,
+                we ask for your consent first.
+              </li>
+              <li>
+                The optional “Remove Ads” purchase is processed by
+                <strong>Google Play</strong>.
+                We never see your payment details.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="local-data">
+          <div class="section-number">02 / LOCAL STORAGE</div>
+          <h2>Information stored on your device</h2>
+
+          <p>
+            RailDrop saves your settings (sound, haptics, night mode),
+            scores, level progress and chosen ball finish in a file
+            on your device. This data is never sent to us.
+            It is deleted when you uninstall the app or clear its data.
+          </p>
+        </section>
+
+        <section id="advertising">
+          <div class="section-number">03 / GOOGLE ADMOB</div>
+          <h2>Advertising (Google AdMob)</h2>
+
+          <p>RailDrop shows two kinds of ads:</p>
+
+          <ul>
+            <li>
+              full-screen ads at natural breaks, such as after
+              a game ends;
+            </li>
+            <li>
+              optional reward videos, which you choose to watch
+              (for example, to continue a level).
+            </li>
+          </ul>
+
+          <p>To provide these ads, Google AdMob may collect and process:</p>
+
+          <ul>
+            <li>your device’s advertising ID;</li>
+            <li>your IP address and approximate location derived from it;</li>
+            <li>
+              device and app information, such as model,
+              operating system and language;
+            </li>
+            <li>interactions with ads, such as views and clicks;</li>
+            <li>diagnostic data.</li>
+          </ul>
+
+          <p>
+            Depending on your consent and location, this information
+            may be used to show personalised ads, or only
+            non-personalised (limited) ads.
+          </p>
+
+          <p>Google’s handling of this data is described in:</p>
+
+          <ul>
+            <li>
+              <a href="https://policies.google.com/technologies/partner-sites"
+                 target="_blank" rel="noopener noreferrer">
+                How Google uses information from apps that use its services
+              </a>
+            </li>
+            <li>
+              <a href="https://policies.google.com/privacy"
+                 target="_blank" rel="noopener noreferrer">
+                Google Privacy Policy
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section id="consent">
+          <div class="section-number">04 / GDPR & UK GDPR</div>
+          <h2>Your consent choices (GDPR / UK GDPR)</h2>
+
+          <p>
+            If you are in the European Economic Area, the
+            United Kingdom or Switzerland, RailDrop shows a
+            consent message (Google’s User Messaging Platform)
+            the first time you play. You can:
+          </p>
+
+          <ul>
+            <li>accept personalised advertising;</li>
+            <li>
+              reject it, in which case you may still see
+              non-personalised (limited) ads;
+            </li>
+            <li>manage your choices by purpose and partner.</li>
+          </ul>
+
+          <p>
+            You can change your choice at any time in
+            <strong>Settings → Privacy</strong> inside the game.
+            The game works the same whatever you choose.
+            Declining never limits access to any part of the game.
+          </p>
+
+          <p>
+            You can also reset or delete your advertising ID in
+            your Android settings
+            (<strong>Settings → Google → Ads</strong>, or
+            <strong>Settings → Privacy → Ads</strong>
+            on some devices).
+          </p>
+        </section>
+
+        <section id="us-rights">
+          <div class="section-number">05 / US PRIVACY</div>
+          <h2>US state privacy rights</h2>
+
+          <p>
+            If you live in a US state with consumer privacy laws
+            (such as California), you can opt out of the “sale”
+            or “sharing” of personal information for targeted
+            advertising through the privacy message shown in the
+            app, or in <strong>Settings → Privacy</strong>.
+          </p>
+        </section>
+
+        <section id="purchases">
+          <div class="section-number">06 / GOOGLE PLAY BILLING</div>
+          <h2>In-app purchase (“Remove Ads”)</h2>
+
+          <p>
+            The optional one-time “Remove Ads” purchase is handled
+            entirely by <strong>Google Play Billing</strong>.
+            Google processes your payment under its own privacy
+            policy. We only receive confirmation that the purchase
+            belongs to your Google account, so your purchase can
+            be restored on new devices.
+            We never receive your card or payment details.
+          </p>
+        </section>
+
+        <section id="children">
+          <div class="section-number">07 / AGE & PRIVACY</div>
+          <h2>Children</h2>
+
+          <p>
+            RailDrop is not directed at children under 13,
+            and we do not knowingly collect personal information
+            from children.
+          </p>
+        </section>
+
+        <section id="sharing">
+          <div class="section-number">08 / THIRD PARTIES</div>
+          <h2>Data sharing and selling</h2>
+
+          <p>
+            We do not sell personal information, and we do not
+            share it with anyone except as described above
+            (Google AdMob for ads, Google Play for purchases).
+          </p>
+        </section>
+
+        <section id="retention">
+          <div class="section-number">09 / DATA CONTROL</div>
+          <h2>Data retention and deletion</h2>
+
+          <ul>
+            <li>
+              We hold no personal data about you on any server,
+              so there is nothing for us to delete.
+            </li>
+            <li>
+              To delete your local game data, uninstall RailDrop
+              or clear its data in Android settings.
+            </li>
+            <li>
+              For data held by Google, use your Google Account controls:
+              <a href="https://myaccount.google.com"
+                 target="_blank" rel="noopener noreferrer">
+                myaccount.google.com
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section id="rights">
+          <div class="section-number">10 / USER RIGHTS</div>
+          <h2>Your rights</h2>
+
+          <p>
+            Depending on where you live, you may have the right to
+            access, correct, delete or object to the processing of
+            your personal data, and to complain to your data
+            protection authority (in Spain, the Agencia Española
+            de Protección de Datos,
+            <a href="https://www.aepd.es"
+               target="_blank" rel="noopener noreferrer">
+              www.aepd.es
+            </a>).
+            Because we do not hold personal data ourselves,
+            most requests concern Google’s services and are
+            best made through Google.
+            You can always contact us with questions.
+          </p>
+        </section>
+
+        <section id="changes">
+          <div class="section-number">11 / UPDATES</div>
+          <h2>Changes to this policy</h2>
+
+          <p>
+            We may update this policy, for example when the app
+            changes. The date at the top shows the latest version.
+          </p>
+        </section>
+
+        <section id="contact">
+          <div class="section-number">12 / CONTACT</div>
+          <h2>Contact</h2>
+
+          <div class="contact-card">
+            <div>
+              <span class="contact-label">Triquinete / Email</span>
+              <a href="mailto:triquinete@gmail.com">
+                triquinete@gmail.com
+              </a>
+            </div>
+            <span class="contact-arrow" aria-hidden="true">↗</span>
+          </div>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <div class="footer-brand">TRIQUINETE</div>
+
+      <div class="footer-meta">
+        Independent game developer<br>
+        Android / Windows<br>
+        © <span id="year">2026</span> Triquinete
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Highlight the current section in the contents sidebar.
+    const links = document.querySelectorAll(".toc a");
+    const sections = document.querySelectorAll(".policy section");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          links.forEach(link => {
+            const active =
+              link.getAttribute("href") === "#" + entry.target.id;
+
+            link.classList.toggle("active", active);
+
+            if (active) {
+              link.setAttribute("aria-current", "location");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          });
+        });
+      }, {
+        rootMargin: "-10% 0px -65% 0px"
+      });
+
+      sections.forEach(section => observer.observe(section));
+    }
+  </script>
+</body>
+</html>
