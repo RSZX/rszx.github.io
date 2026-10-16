@@ -1,10 +1,675 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Triquinete</title></head>
-<body style="font-family:sans-serif;max-width:40rem;margin:3rem auto;padding:0 1rem">
-<h1>Triquinete</h1>
-<p>Developer of <strong>RailDrop</strong>, a physics timing game for Android, <strong>OpenGrounds</strong>, a heavy-machinery sandbox for Android, and <strong>TraceDrive</strong>, a trajectory-planning motorsport game for Android and Windows.</p>
-<p><a href="/raildrop-gdpr/">RailDrop privacy policy</a></p>
-<p><a href="/opengrounds-gdpr/">OpenGrounds privacy policy</a></p>
-<p><a href="/tracedrive-gdpr/">TraceDrive privacy policy</a></p>
-</body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a0d10">
+
+  <title>Triquinete — Games & Interactive Systems</title>
+  <meta
+    name="description"
+    content="Triquinete develops distinctive games and interactive experiences for Android and Windows, including RailDrop, OpenGrounds and TraceDrive."
+  >
+
+  <style>
+    :root {
+      --bg: #090b0d;
+      --bg-elevated: #0f1317;
+      --bg-card: rgba(18, 23, 28, 0.82);
+
+      --text: #f3f6f8;
+      --text-soft: #a4adb5;
+      --text-faint: #707a83;
+
+      --line: rgba(255, 255, 255, 0.10);
+      --line-strong: rgba(255, 255, 255, 0.17);
+
+      --accent: #ff6a1a;
+      --accent-bright: #ff8b45;
+      --accent-soft: rgba(255, 106, 26, 0.12);
+
+      --radius: 18px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 80% 10%,
+          rgba(255, 106, 26, 0.08),
+          transparent 28rem
+        ),
+        linear-gradient(180deg, #0b0e11 0%, #07090b 100%);
+
+      font-family:
+        Inter,
+        "SF Pro Display",
+        "SF Pro Text",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 28px 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+
+      color: var(--text);
+      text-decoration: none;
+
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      border: 1px solid var(--line-strong);
+      background: linear-gradient(145deg, #191e23, #0d1013);
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%);
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      background: var(--accent);
+      clip-path: polygon(0 0, 100% 0, 100% 40%, 40% 100%, 0 100%);
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    .nav-meta {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    main {
+      padding: 72px 0 100px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.5fr);
+      gap: 64px;
+      align-items: end;
+      padding: 58px 0 84px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 24px;
+
+      color: var(--accent-bright);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(255, 106, 26, 0.5);
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+
+      font-size: clamp(3.6rem, 9vw, 8rem);
+      line-height: 0.88;
+      letter-spacing: -0.065em;
+      font-weight: 850;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+
+    .hero-description {
+      max-width: 620px;
+      margin: 34px 0 0;
+
+      color: var(--text-soft);
+      font-size: clamp(1.05rem, 2vw, 1.26rem);
+      line-height: 1.65;
+    }
+
+    .hero-side {
+      padding-bottom: 8px;
+    }
+
+    .status {
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    .status-label {
+      margin-bottom: 10px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .status-value {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      color: var(--text-soft);
+      font-size: 0.92rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px var(--accent);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+
+      margin-bottom: 24px;
+      padding-top: 28px;
+
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 0.82rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .section-code {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.72rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .project {
+      position: relative;
+      overflow: hidden;
+
+      min-height: 320px;
+      padding: 28px;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.045),
+          rgba(255,255,255,0.012)
+        ),
+        var(--bg-card);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      border-color: var(--line-strong);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,106,26,0.07),
+          rgba(255,255,255,0.015)
+        ),
+        var(--bg-card);
+    }
+
+    .project::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      bottom: -90px;
+
+      width: 190px;
+      height: 190px;
+
+      border: 1px solid rgba(255, 106, 26, 0.18);
+      transform: rotate(45deg);
+      transition: transform 260ms ease;
+    }
+
+    .project:hover::after {
+      transform: rotate(45deg) translate(-12px, -12px);
+    }
+
+    .project-number {
+      color: var(--accent);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+    }
+
+    .project h2 {
+      margin: 74px 0 16px;
+
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .project p {
+      max-width: 28rem;
+      margin: 0;
+
+      color: var(--text-soft);
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      padding: 6px 9px;
+
+      border: 1px solid var(--line);
+      border-radius: 6px;
+
+      color: var(--text-faint);
+      background: rgba(255,255,255,0.025);
+
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .legal {
+      margin-top: 96px;
+    }
+
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .legal-link {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      padding: 24px 20px;
+
+      color: var(--text-soft);
+      text-decoration: none;
+
+      border-right: 1px solid var(--line);
+
+      transition:
+        color 160ms ease,
+        background 160ms ease;
+    }
+
+    .legal-link:last-child {
+      border-right: 0;
+    }
+
+    .legal-link:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.025);
+    }
+
+    .legal-link span:last-child {
+      color: var(--accent);
+      transition: transform 160ms ease;
+    }
+
+    .legal-link:hover span:last-child {
+      transform: translateX(4px);
+    }
+
+    footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+
+      padding: 70px 0 38px;
+    }
+
+    .footer-brand {
+      color: var(--text);
+      font-size: clamp(2rem, 5vw, 4.4rem);
+      font-weight: 850;
+      letter-spacing: -0.055em;
+    }
+
+    .footer-meta {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.68rem;
+      line-height: 1.8;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 42px;
+        padding-top: 38px;
+      }
+
+      .hero-side {
+        max-width: 360px;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .project {
+        min-height: 260px;
+      }
+
+      .project h2 {
+        margin-top: 56px;
+      }
+
+      .legal-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .legal-link {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .legal-link:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      header {
+        padding-top: 20px;
+      }
+
+      .nav-meta {
+        display: none;
+      }
+
+      main {
+        padding-top: 28px;
+      }
+
+      .hero {
+        padding-bottom: 60px;
+      }
+
+      h1 {
+        font-size: clamp(3.3rem, 19vw, 5.2rem);
+      }
+
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-meta {
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="brand" href="/" aria-label="Triquinete home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Triquinete</span>
+      </a>
+
+      <div class="nav-meta">
+        Independent game development / ES
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Games engineered to feel different</div>
+
+        <h1>
+          Play with
+          <span>mechanics.</span>
+        </h1>
+
+        <p class="hero-description">
+          Triquinete develops focused, systems-driven games built around
+          physics, machinery, movement and interaction — designed for Android
+          and Windows.
+        </p>
+      </div>
+
+      <aside class="hero-side">
+        <div class="status">
+          <div class="status-label">Development status</div>
+          <div class="status-value">
+            <span class="status-dot"></span>
+            Active development
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">Projects</h2>
+        <span class="section-code">TRQ / 001—003</span>
+      </div>
+
+      <div class="projects">
+        <article class="project">
+          <div class="project-number">01 / RAILDROP</div>
+
+          <h2>RailDrop</h2>
+
+          <p>
+            A physics timing game where precision, momentum and timing decide
+            whether the ball reaches a moving miniature train.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Android</span>
+            <span class="tag">Physics</span>
+            <span class="tag">Timing</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-number">02 / OPENGROUNDS</div>
+
+          <h2>OpenGrounds</h2>
+
+          <p>
+            A heavy-machinery sandbox built around excavation, construction,
+            terrain deformation and operating industrial equipment.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Android</span>
+            <span class="tag">Sandbox</span>
+            <span class="tag">Machinery</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-number">03 / TRACEDRIVE</div>
+
+          <h2>TraceDrive</h2>
+
+          <p>
+            A motorsport game where the race starts before the car moves:
+            draw the trajectory, control the pace, then watch the plan unfold.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Android</span>
+            <span class="tag">Windows</span>
+            <span class="tag">Racing</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="legal">
+      <div class="section-header">
+        <h2 class="section-title">Legal & Privacy</h2>
+        <span class="section-code">POLICIES</span>
+      </div>
+
+      <div class="legal-grid">
+        <a class="legal-link" href="/raildrop-gdpr/">
+          <span>RailDrop privacy policy</span>
+          <span>↗</span>
+        </a>
+
+        <a class="legal-link" href="/opengrounds-gdpr/">
+          <span>OpenGrounds privacy policy</span>
+          <span>↗</span>
+        </a>
+
+        <a class="legal-link" href="/tracedrive-gdpr/">
+          <span>TraceDrive privacy policy</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <div class="footer-brand">TRIQUINETE</div>
+
+    <div class="footer-meta">
+      Independent game developer<br>
+      Android / Windows<br>
+      © <span id="year"></span> Triquinete
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
