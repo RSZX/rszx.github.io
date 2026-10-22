@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090b0d">
-  <link rel="icon" type="image/png" href="/triquinete-logo.png">
-  <link rel="apple-touch-icon" href="/triquinete-logo.png">
+  <link rel="icon" type="image/svg+xml" href="/triquinete-favicon.svg">
+  <link rel="apple-touch-icon" href="/triquinete-header-logo.png">
   <meta name="description" content="OpenGrounds privacy policy. Learn how Triquinete handles game data, purchases and privacy.">
   <title>OpenGrounds - Privacy Policy | Triquinete</title>
 
@@ -417,7 +417,18 @@
       gap: 30px;
     }
 
+    .footer-logo {
+      display: block;
+      flex: 0 0 64px;
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+
     .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
       font-size: clamp(1.8rem,4vw,3.3rem);
       line-height: 1;
       font-weight: 850;
@@ -751,7 +762,10 @@
 
   <footer>
     <div class="shell footer-inner">
-      <div class="footer-brand">TRIQUINETE</div>
+      <div class="footer-brand">
+        <img class="footer-logo" src="/triquinete-logo.png" width="64" height="64" alt="" loading="lazy">
+        <span>TRIQUINETE</span>
+      </div>
 
       <div class="footer-meta">
         Independent game developer<br>
