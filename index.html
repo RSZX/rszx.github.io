@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0a0d10">
+  <link rel="icon" type="image/png" href="/triquinete-logo.png">
+  <link rel="apple-touch-icon" href="/triquinete-logo.png">
 
   <title>Triquinete - Games & Apps</title>
   <meta
@@ -117,22 +119,10 @@
       text-transform: uppercase;
     }
 
-    .brand-mark {
+    .brand-logo {
       width: 32px;
       height: 32px;
-      position: relative;
-      border: 1px solid var(--line-strong);
-      background: linear-gradient(145deg, #191e23, #0d1013);
-      clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%);
-    }
-
-    .brand-mark::after {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      background: var(--accent);
-      clip-path: polygon(0 0, 100% 0, 100% 40%, 40% 100%, 0 100%);
-      box-shadow: 0 0 20px var(--accent);
+      object-fit: contain;
     }
 
     .nav-meta {
@@ -536,7 +526,7 @@
   <header>
     <div class="shell nav">
       <a class="brand" href="/" aria-label="Triquinete home">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <img class="brand-logo" src="/triquinete-logo.png" alt="">
         <span>Triquinete</span>
       </a>
 
