@@ -595,6 +595,24 @@
     @media (max-width: 560px) {
       .tester-box { padding: 20px; }
     }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      box-shadow: none;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(255,255,255,.05);
+      border-color: var(--accent);
+    }
   </style>
 </head>
 
@@ -642,12 +660,17 @@
         opt-in link, and you get to play it first, for free.
       </p>
 
-      <a class="cta" href="https://forms.gle/RDdCgHStEGkF2u3YA" target="_blank" rel="noopener noreferrer">
-        Sign up as a tester <span aria-hidden="true">↗</span>
-      </a>
+      <div class="cta-row">
+        <a class="cta" href="https://forms.gle/RDdCgHStEGkF2u3YA" target="_blank" rel="noopener noreferrer">
+          Sign up as a tester <span aria-hidden="true">↗</span>
+        </a>
+        <a class="cta cta-secondary" href="https://play.google.com/apps/testing/com.triquinete.opengrounds" target="_blank" rel="noopener noreferrer">
+          Open in Google Play <span aria-hidden="true">↗</span>
+        </a>
+      </div>
 
       <div class="cta-note">
-        Opens Google Forms ·
+        Already signed up? Use “Open in Google Play” to join the test once we’ve added you ·
         <a href="/opengrounds-testers/">How testing works</a>
       </div>
     </section>

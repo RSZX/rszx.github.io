@@ -549,6 +549,24 @@
 
     .policy ol li { padding-left: 6px; }
     .policy ol li::before { content: none; }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      box-shadow: none;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(255,255,255,.05);
+      border-color: var(--accent);
+    }
   </style>
 </head>
 
@@ -616,8 +634,9 @@
 
         <ol>
           <li>Sign up with the email of your Google Play account.</li>
-          <li>We add you to the closed test and send you the opt-in link.</li>
-          <li>Accept the invite and install OpenGrounds from Google Play.</li>
+          <li>We add you to the closed test.</li>
+          <li>Open the <a href="https://play.google.com/apps/testing/com.triquinete.opengrounds" target="_blank" rel="noopener noreferrer">OpenGrounds test page on Google Play</a> and tap “Become a tester”.</li>
+          <li>Install OpenGrounds from Google Play.</li>
           <li>Keep the game installed for 14 days. Playing and sending feedback is very welcome.</li>
         </ol>
       </section>
@@ -643,9 +662,14 @@
           than a minute.
         </p>
 
-        <a class="cta" href="https://forms.gle/RDdCgHStEGkF2u3YA" target="_blank" rel="noopener noreferrer">
-          Sign up as a tester <span aria-hidden="true">↗</span>
-        </a>
+        <div class="cta-row">
+          <a class="cta" href="https://forms.gle/RDdCgHStEGkF2u3YA" target="_blank" rel="noopener noreferrer">
+            Sign up as a tester <span aria-hidden="true">↗</span>
+          </a>
+          <a class="cta cta-secondary" href="https://play.google.com/apps/testing/com.triquinete.opengrounds" target="_blank" rel="noopener noreferrer">
+            Open in Google Play <span aria-hidden="true">↗</span>
+          </a>
+        </div>
 
         <div class="cta-note">Opens Google Forms: forms.gle/RDdCgHStEGkF2u3YA</div>
       </section>
