@@ -297,6 +297,23 @@
         background 180ms ease;
     }
 
+    /* Stretch the card's heading link over the whole card. */
+    .card-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .card-link::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .card-link:hover { text-decoration: none; }
+
+    .card-cta { color: var(--accent-bright); }
+
     .project:hover {
       transform: translateY(-5px);
       border-color: var(--line-strong);
@@ -615,7 +632,7 @@
         <article class="project">
           <div class="project-number">02 / OPENGROUNDS</div>
 
-          <h2><a href="/opengrounds/" style="color: inherit;">OpenGrounds</a></h2>
+          <h2><a class="card-link" href="/opengrounds/">OpenGrounds</a></h2>
 
           <p>
             A heavy-machinery sandbox built around excavation, construction,
@@ -629,7 +646,7 @@
           </div>
 
           <p>
-            <a href="/opengrounds/">Game page &amp; tester sign-up ↗</a>
+            <span class="card-cta">Game page &amp; tester sign-up ↗</span>
           </p>
         </article>
 
