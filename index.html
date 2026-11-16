@@ -390,6 +390,376 @@
       text-transform: uppercase;
     }
 
+    /* ---------- Availability: pills, store buttons ---------- */
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+
+      padding: 5px 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+
+      color: var(--text-faint);
+      background: rgba(255,255,255,0.03);
+
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .pill-live {
+      color: #7ee2a8;
+      border-color: rgba(61, 220, 132, 0.35);
+      background: rgba(61, 220, 132, 0.08);
+    }
+
+    .pill-live::before {
+      box-shadow: 0 0 10px #3ddc84;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    .pill-beta {
+      color: var(--accent-bright);
+      border-color: rgba(255, 106, 26, 0.38);
+      background: var(--accent-soft);
+    }
+
+    .pill-beta::before {
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .pill-dev::before {
+      background: transparent;
+      border: 1px solid currentColor;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    /* Actions sit above the stretched card link so they stay clickable. */
+    .card-actions {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .card-note {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+
+      padding: 9px 16px 9px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+
+      color: var(--text);
+      background: #000;
+      text-decoration: none;
+
+      transition:
+        transform 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+    }
+
+    .store-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(61, 220, 132, 0.55);
+      box-shadow: 0 8px 28px rgba(61, 220, 132, 0.14);
+    }
+
+    .store-btn svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .store-btn-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .store-btn-text small {
+      color: var(--text-soft);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .store-btn-text strong {
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 11px 16px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+
+      color: #120700;
+      background: var(--accent);
+      text-decoration: none;
+
+      font-size: 0.9rem;
+      font-weight: 750;
+
+      transition:
+        transform 160ms ease,
+        background 160ms ease,
+        box-shadow 160ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: var(--accent-bright);
+      box-shadow: 0 8px 28px rgba(255, 106, 26, 0.25);
+    }
+
+    .btn-ghost {
+      color: var(--text-soft);
+      background: transparent;
+      border-color: var(--line-strong);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+      box-shadow: none;
+    }
+
+    /* ---------- Get the games section ---------- */
+
+    .get {
+      margin-top: 96px;
+    }
+
+    .get-intro {
+      max-width: 640px;
+      margin: 0 0 28px;
+      color: var(--text-soft);
+      font-size: 1.02rem;
+      line-height: 1.65;
+    }
+
+    .lanes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .lane {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+    }
+
+    .lane::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 26px;
+      right: 26px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--line-strong);
+    }
+
+    .lane-live::before {
+      background: linear-gradient(90deg, #3ddc84, transparent);
+      box-shadow: 0 0 18px rgba(61, 220, 132, 0.5);
+    }
+
+    .lane-beta::before {
+      background: linear-gradient(90deg, var(--accent), transparent);
+      box-shadow: 0 0 18px rgba(255, 106, 26, 0.5);
+    }
+
+    .lane-step {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .lane h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .lane p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    .lane-steps {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .lane-steps li {
+      position: relative;
+      padding: 0 0 10px 30px;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      counter-increment: step;
+    }
+
+    .lane-steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 1px;
+
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+
+      color: var(--accent-bright);
+      background: var(--accent-soft);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.66rem;
+      font-weight: 700;
+    }
+
+    .lane-steps strong,
+    .lane p strong {
+      color: var(--text);
+    }
+
+    .lane-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+
+    .upcoming {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .upcoming li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .upcoming strong {
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .upcoming span {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    .lane .lane-foot {
+      margin-top: auto;
+      color: var(--text-faint);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .status-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    .status-row:hover {
+      color: var(--text);
+    }
+
+    .status-jump {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--accent-bright);
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .status-jump:hover {
+      text-decoration: underline;
+    }
+
     .apps,
     .legal {
       margin-top: 96px;
@@ -486,7 +856,8 @@
         max-width: 360px;
       }
 
-      .projects {
+      .projects,
+      .lanes {
         grid-template-columns: 1fr;
       }
 
@@ -556,6 +927,7 @@
       *::before,
       *::after {
         transition: none !important;
+        animation: none !important;
       }
     }
   </style>
@@ -596,11 +968,22 @@
 
       <aside class="hero-side">
         <div class="status">
-          <div class="status-label">Development status</div>
-          <div class="status-value">
-            <span class="status-dot"></span>
-            Active development
+          <div class="status-label">Availability</div>
+          <div class="status-list">
+            <a class="status-row" href="https://play.google.com/store/apps/details?id=com.triquinete.raildrop" target="_blank" rel="noopener noreferrer">
+              RailDrop <span class="pill pill-live">Out now</span>
+            </a>
+            <a class="status-row" href="/opengrounds/#testers">
+              OpenGrounds <span class="pill pill-beta">Free testing</span>
+            </a>
+            <a class="status-row" href="#get">
+              TraceDrive <span class="pill pill-dev">In development</span>
+            </a>
+            <a class="status-row" href="#get">
+              StrikeLab <span class="pill pill-dev">In development</span>
+            </a>
           </div>
+          <a class="status-jump" href="#get">How to get them ↓</a>
         </div>
       </aside>
     </section>
@@ -613,9 +996,12 @@
 
       <div class="projects">
         <article class="project">
-          <div class="project-number">01 / RAILDROP</div>
+          <div class="project-top">
+            <div class="project-number">01 / RAILDROP</div>
+            <span class="pill pill-live">Out now</span>
+          </div>
 
-          <h2>RailDrop</h2>
+          <h2><a class="card-link" href="https://play.google.com/store/apps/details?id=com.triquinete.raildrop" target="_blank" rel="noopener noreferrer">RailDrop</a></h2>
 
           <p>
             A physics timing game where precision, momentum and timing decide
@@ -627,10 +1013,23 @@
             <span class="tag">Physics</span>
             <span class="tag">Timing</span>
           </div>
+
+          <div class="card-actions">
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.triquinete.raildrop" target="_blank" rel="noopener noreferrer" aria-label="Get RailDrop on Google Play">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#3ddc84" d="M5 3.2v17.6c0 .8.9 1.3 1.6.9l15-8.8c.7-.4.7-1.4 0-1.8l-15-8.8C5.9 1.9 5 2.4 5 3.2Z"/></svg>
+              <span class="store-btn-text">
+                <small>Get it on</small>
+                <strong>Google Play</strong>
+              </span>
+            </a>
+          </div>
         </article>
 
         <article class="project">
-          <div class="project-number">02 / OPENGROUNDS</div>
+          <div class="project-top">
+            <div class="project-number">02 / OPENGROUNDS</div>
+            <span class="pill pill-beta">Free testing</span>
+          </div>
 
           <h2><a class="card-link" href="/opengrounds/">OpenGrounds</a></h2>
 
@@ -645,13 +1044,17 @@
             <span class="tag">Machinery</span>
           </div>
 
-          <p>
-            <span class="card-cta">Game page &amp; tester sign-up ↗</span>
-          </p>
+          <div class="card-actions">
+            <a class="btn" href="/opengrounds/#testers">Become a tester <span aria-hidden="true">→</span></a>
+            <span class="card-note">5 spots · free</span>
+          </div>
         </article>
 
         <article class="project">
-          <div class="project-number">03 / TRACEDRIVE</div>
+          <div class="project-top">
+            <div class="project-number">03 / TRACEDRIVE</div>
+            <span class="pill pill-dev">In development</span>
+          </div>
 
           <h2>TraceDrive</h2>
 
@@ -665,6 +1068,10 @@
             <span class="tag">Windows</span>
             <span class="tag">Racing</span>
           </div>
+
+          <div class="card-actions">
+            <span class="card-note">Coming to Google Play &amp; Windows</span>
+          </div>
         </article>
       </div>
     </section>
@@ -677,7 +1084,10 @@
 
       <div class="projects">
         <article class="project">
-          <div class="project-number">A01 / STRIKELAB</div>
+          <div class="project-top">
+            <div class="project-number">A01 / STRIKELAB</div>
+            <span class="pill pill-dev">In development</span>
+          </div>
 
           <h2>StrikeLab</h2>
 
@@ -692,6 +1102,94 @@
             <span class="tag">Bowling</span>
             <span class="tag">Computer vision</span>
           </div>
+
+          <div class="card-actions">
+            <span class="card-note">Coming to Google Play</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="get" id="get">
+      <div class="section-header">
+        <h2 class="section-title">How to get them</h2>
+        <span class="section-code">GOOGLE PLAY</span>
+      </div>
+
+      <p class="get-intro">
+        Our games and apps launch on Google Play. Here's where each
+        project stands and how you can play it today.
+      </p>
+
+      <div class="lanes">
+        <article class="lane lane-live">
+          <div class="project-top">
+            <span class="lane-step">01 / Available now</span>
+            <span class="pill pill-live">Live</span>
+          </div>
+
+          <h3>RailDrop</h3>
+
+          <p>
+            <strong>Free to play</strong> on Google Play for Android phones
+            and tablets. An optional one-time purchase removes the ads.
+          </p>
+
+          <div class="lane-actions">
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.triquinete.raildrop" target="_blank" rel="noopener noreferrer" aria-label="Get RailDrop on Google Play">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#3ddc84" d="M5 3.2v17.6c0 .8.9 1.3 1.6.9l15-8.8c.7-.4.7-1.4 0-1.8l-15-8.8C5.9 1.9 5 2.4 5 3.2Z"/></svg>
+              <span class="store-btn-text">
+                <small>Get it on</small>
+                <strong>Google Play</strong>
+              </span>
+            </a>
+          </div>
+        </article>
+
+        <article class="lane lane-beta">
+          <div class="project-top">
+            <span class="lane-step">02 / Play it early</span>
+            <span class="pill pill-beta">5 spots</span>
+          </div>
+
+          <h3>OpenGrounds</h3>
+
+          <ol class="lane-steps">
+            <li>Sign up with your <strong>Google Play email</strong>.</li>
+            <li>We add you and send the opt-in link.</li>
+            <li>Keep it installed for <strong>14 days</strong> and get the
+              <strong>Full game free</strong>, for good.</li>
+          </ol>
+
+          <div class="lane-actions">
+            <a class="btn" href="/opengrounds/#testers">Become a tester <span aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="/opengrounds-testers/">How it works</a>
+          </div>
+        </article>
+
+        <article class="lane">
+          <div class="project-top">
+            <span class="lane-step">03 / On the way</span>
+            <span class="pill pill-dev">In development</span>
+          </div>
+
+          <h3>Coming soon</h3>
+
+          <ul class="upcoming">
+            <li>
+              <strong>TraceDrive</strong>
+              <span>Android · Windows</span>
+            </li>
+            <li>
+              <strong>StrikeLab</strong>
+              <span>Android</span>
+            </li>
+          </ul>
+
+          <p class="lane-foot">
+            Still being built. Download links will appear right here as
+            soon as each one launches.
+          </p>
         </article>
       </div>
     </section>
