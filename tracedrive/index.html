@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b0d">
+  <link rel="icon" type="image/svg+xml" href="/triquinete-favicon.svg">
+  <link rel="apple-touch-icon" href="/triquinete-header-logo.png">
+  <meta name="description" content="TraceDrive is a motorsport game for Android and Windows by Triquinete. Draw your racing line, control the pace, then watch the plan unfold. In development.">
+  <title>TraceDrive | Triquinete</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b0d;
+      --surface: #101418;
+      --text: #f3f6f8;
+      --text-soft: #a4adb5;
+      --text-faint: #707a83;
+      --line: rgba(255,255,255,.10);
+      --line-strong: rgba(255,255,255,.17);
+      --accent: #ff6a1a;
+      --accent-bright: #ff8b45;
+      --accent-soft: rgba(255,106,26,.10);
+      --max-width: 1180px;
+      --article-width: 780px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 85% 5%,
+          rgba(255,106,26,.075),
+          transparent 32rem
+        ),
+        linear-gradient(180deg,#0b0e11,#07090b);
+      font-family:
+        Inter, "SF Pro Text", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom,black,transparent 75%);
+    }
+
+    a {
+      color: var(--accent-bright);
+      text-decoration: none;
+      text-underline-offset: 4px;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+      border-radius: 2px;
+    }
+
+    .shell {
+      width: min(calc(100% - 40px),var(--max-width));
+      margin: 0 auto;
+    }
+
+    header {
+      position: relative;
+      z-index: 2;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .95rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .brand:hover { text-decoration: none; }
+
+    .brand-logo {
+      display: block;
+      flex: 0 0 40px;
+      width: 40px;
+      height: 36px;
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Frame the symbol inside the source image's transparent margins. */
+      transform: scale(1.9);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-label, .mono {
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .73rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .nav-label { color: var(--text-faint); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--text-soft);
+      font-size: .85rem;
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+
+    main {
+      position: relative;
+      padding-top: 72px;
+      padding-bottom: 110px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      color: var(--accent-bright);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(255,106,26,.45);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 920px;
+      font-size: clamp(3rem,7vw,6.4rem);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 850;
+    }
+
+    h1 span {
+      display: block;
+      margin-top: 8px;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+
+    .hero-intro {
+      max-width: 720px;
+      margin: 32px 0 0;
+      color: var(--text-soft);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .hero-intro strong { color: var(--text); }
+
+    .metadata {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 44px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metadata-item { min-width: 130px; }
+
+    .metadata-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .66rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .metadata-value {
+      display: block;
+      font-size: .9rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .document-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0,1fr);
+      gap: 62px;
+      margin-top: 70px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 28px;
+    }
+
+    .sidebar-heading {
+      margin: 0 0 20px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .toc {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-left: 1px solid var(--line);
+    }
+
+    .toc a {
+      padding: 10px 16px;
+      margin-left: -1px;
+      color: var(--text-faint);
+      border-left: 2px solid transparent;
+      font-size: .81rem;
+      line-height: 1.45;
+      transition: color .2s,border-color .2s,background .2s;
+    }
+
+    .toc a:hover,
+    .toc a.active {
+      color: var(--text);
+      text-decoration: none;
+      border-left-color: var(--accent);
+      background: rgba(255,106,26,.035);
+    }
+
+    .policy {
+      width: 100%;
+      max-width: var(--article-width);
+      min-width: 0;
+    }
+
+    .policy section {
+      padding-bottom: 36px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 32px;
+    }
+
+    .policy section:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .section-number {
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .69rem;
+      letter-spacing: .08em;
+    }
+
+    h2 {
+      margin: 0 0 19px;
+      font-size: clamp(1.4rem,2.7vw,1.85rem);
+      line-height: 1.25;
+      letter-spacing: -.035em;
+      font-weight: 750;
+    }
+
+    .policy p {
+      margin: 0 0 17px;
+      color: var(--text-soft);
+      font-size: .965rem;
+      line-height: 1.85;
+    }
+
+    .policy p:last-child { margin-bottom: 0; }
+
+    .policy strong {
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .policy ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .policy li {
+      position: relative;
+      margin-bottom: 14px;
+      padding-left: 24px;
+      color: var(--text-soft);
+      font-size: .965rem;
+      line-height: 1.75;
+    }
+
+    .policy li::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: 12px;
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    }
+
+    .summary-box {
+      padding: 30px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.035),
+        rgba(255,255,255,.008)
+      );
+    }
+
+    .summary-box ul { margin-top: 6px; }
+    .summary-box li:last-child { margin-bottom: 0; }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .contact-card .contact-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .contact-card a {
+      font-size: 1rem;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-arrow {
+      color: var(--accent);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 42px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-logo {
+      display: block;
+      flex: 0 0 64px;
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: clamp(1.8rem,4vw,3.3rem);
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -.055em;
+    }
+
+    .footer-meta {
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .68rem;
+      line-height: 1.9;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 900px) {
+      .document-layout {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+
+      .sidebar { position: static; }
+
+      .toc {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-left: 0;
+      }
+
+      .toc a {
+        margin-left: 0;
+        padding: 7px 11px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+
+      .toc a:hover, .toc a.active {
+        border: 1px solid var(--accent);
+      }
+
+      .policy { max-width: 100%; }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(calc(100% - 28px),var(--max-width));
+      }
+
+      .nav { min-height: 72px; }
+      .nav-label { display: none; }
+
+      main {
+        padding-top: 49px;
+        padding-bottom: 70px;
+      }
+
+      h1 { font-size: clamp(2.65rem,12vw,4.3rem); }
+      .hero-intro { font-size: 1rem; }
+
+      .metadata { gap: 22px; }
+
+      .document-layout { margin-top: 48px; }
+
+      .summary-box { padding: 20px; }
+      .contact-card { padding: 20px; }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .footer-meta { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      padding: 16px 26px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #0b0e11;
+      font-weight: 750;
+      font-size: 1rem;
+      box-shadow: 0 0 24px rgba(255,106,26,.25);
+      transition: background .2s, transform .2s;
+    }
+
+    .cta:hover {
+      background: var(--accent-bright);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .cta-note {
+      margin-top: 14px;
+      color: var(--text-faint);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .72rem;
+      letter-spacing: .04em;
+      overflow-wrap: anywhere;
+    }
+
+    .policy ol {
+      margin: 0;
+      padding-left: 22px;
+      color: var(--text-soft);
+    }
+
+    .policy ol li { padding-left: 6px; }
+    .policy ol li::before { content: none; }
+  
+    .tester-box {
+      margin-top: 44px;
+      padding: 30px;
+      border: 1px solid rgba(255,106,26,.45);
+      border-radius: 14px;
+      background: linear-gradient(145deg, var(--accent-soft), rgba(255,255,255,.01));
+    }
+
+    .tester-box h2 { margin-bottom: 12px; }
+
+    .tester-box p {
+      margin: 0 0 20px;
+      max-width: 680px;
+      color: var(--text-soft);
+    }
+
+    .tester-box p strong { color: var(--text); }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 24px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .feature h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      letter-spacing: -.02em;
+    }
+
+    .feature p {
+      margin: 0;
+      font-size: .93rem;
+    }
+
+    @media (max-width: 560px) {
+      .tester-box { padding: 20px; }
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      box-shadow: none;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(255,255,255,.05);
+      border-color: var(--accent);
+    }
+
+    .reward {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      max-width: 680px;
+      margin: 0 0 24px;
+      padding: 18px 20px;
+      border: 1px solid var(--line-strong);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      background: rgba(9,11,13,.55);
+    }
+
+    .reward-icon {
+      flex-shrink: 0;
+      color: var(--accent-bright);
+      font-size: 1.4rem;
+      line-height: 1.3;
+    }
+
+    .reward-title {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-weight: 750;
+    }
+
+    .tester-box .reward p {
+      margin: 0;
+      font-size: .93rem;
+    }
+
+    .spots {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 3px 9px;
+      border: 1px solid rgba(255,106,26,.45);
+      border-radius: 999px;
+      color: var(--accent-bright);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .66rem;
+      letter-spacing: .1em;
+      vertical-align: middle;
+    }
+  
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: var(--text-faint);
+      background: rgba(255,255,255,.03);
+      font-family: "SFMono-Regular",Consolas,monospace;
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .pill-live {
+      color: #7ee2a8;
+      border-color: rgba(61,220,132,.35);
+      background: rgba(61,220,132,.08);
+    }
+
+    .pill-live::before {
+      box-shadow: 0 0 10px #3ddc84;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    .pill-dev::before {
+      background: transparent;
+      border: 1px solid currentColor;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .35; }
+    }
+
+    .get-box {
+      margin-top: 44px;
+      padding: 30px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
+    }
+
+    .get-box.live {
+      border-color: rgba(61,220,132,.4);
+      background: linear-gradient(145deg, rgba(61,220,132,.08), rgba(255,255,255,.01));
+    }
+
+    .get-box h2 { margin-bottom: 12px; }
+
+    .get-box p {
+      margin: 0 0 22px;
+      max-width: 680px;
+      color: var(--text-soft);
+    }
+
+    .get-box p strong { color: var(--text); }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 20px 11px 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      color: var(--text);
+      background: #000;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+    }
+
+    .store-btn:hover {
+      text-decoration: none;
+      transform: translateY(-2px);
+      border-color: rgba(61,220,132,.55);
+      box-shadow: 0 8px 28px rgba(61,220,132,.16);
+    }
+
+    .store-btn svg { width: 26px; height: 26px; flex-shrink: 0; }
+
+    .store-btn-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .store-btn-text small {
+      color: var(--text-soft);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .store-btn-text strong { font-size: 1.15rem; letter-spacing: -.01em; }
+
+    .platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 22px;
+    }
+
+    .platform {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 10px;
+      color: var(--text-soft);
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .platform .mono { color: var(--text-faint); font-size: .64rem; }
+
+    @media (max-width: 560px) {
+      .get-box { padding: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="brand" href="/" aria-label="Triquinete homepage">
+        <span class="brand-logo" aria-hidden="true">
+          <img src="/triquinete-header-logo.png" width="10667" height="6000" alt="">
+        </span>
+        <span>Triquinete</span>
+      </a>
+
+      <div class="nav-right">
+        <span class="nav-label">Games / TraceDrive</span>
+        <a href="/" class="back-link">
+          <span aria-hidden="true">←</span> Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div class="eyebrow">Android & Windows game / Racing</div>
+
+    <h1>
+      TraceDrive
+      <span>Draw the line. Run the plan.</span>
+    </h1>
+
+    <p class="hero-intro">
+      A motorsport game where <strong>the race starts before the car moves</strong>: draw the trajectory, control the pace, then watch the plan unfold.
+    </p>
+
+    <div class="metadata">
+      <div class="metadata-item">
+        <span class="metadata-label">Status</span>
+        <span class="metadata-value">In development</span>
+      </div>
+      <div class="metadata-item">
+        <span class="metadata-label">Platforms</span>
+        <span class="metadata-value">Android / Windows</span>
+      </div>
+      <div class="metadata-item">
+        <span class="metadata-label">Price</span>
+        <span class="metadata-value">Free · optional Full Game</span>
+      </div>
+      <div class="metadata-item">
+        <span class="metadata-label">Developer</span>
+        <span class="metadata-value">Triquinete</span>
+      </div>
+    </div>
+
+      <section class="get-box" id="get">
+        <div class="section-number">IN DEVELOPMENT</div>
+        <h2>Coming soon <span class="pill pill-dev">In development</span></h2>
+        <p>
+          TraceDrive is still being built. It's heading to
+          <strong>Google Play</strong> on Android and to <strong>Windows</strong>.
+          The download links will appear right here as soon as it launches.
+        </p>
+        <div class="platforms">
+          <span class="platform">Android <span class="mono">Google Play</span></span>
+          <span class="platform">Windows <span class="mono">PC</span></span>
+        </div>
+      </section>
+
+    <article class="policy" style="margin-top: 70px; max-width: 100%;">
+      <section id="features">
+        <div class="section-number">01 / THE GAME</div>
+        <h2>What you can do</h2>
+
+        <div class="features">
+          <div class="feature">
+            <h3>Draw your line</h3>
+            <p>Trace the trajectory through every corner before the lights go out.</p>
+          </div>
+          <div class="feature">
+            <h3>Control the pace</h3>
+            <p>Decide where to push and where to brake.</p>
+          </div>
+          <div class="feature">
+            <h3>Watch it unfold</h3>
+            <p>Hit go and see whether your plan holds up on track.</p>
+          </div>
+          <div class="feature">
+            <h3>Medals & best laps</h3>
+            <p>Beat your best times and collect medals on every circuit.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="details">
+        <div class="section-number">02 / DETAILS</div>
+        <h2>Details</h2>
+
+        <ul>
+          <li><strong>Platforms:</strong> Android (Google Play) and Windows.</li>
+          <li><strong>Android:</strong> free, with ads only after races, never while you plan or race. An optional one-time <strong>“Full Game”</strong> purchase unlocks every circuit and removes all ads.</li>
+          <li><strong>Windows:</strong> no ads, no purchases, works offline.</li>
+          <li>No account needed: settings, times and medals stay on your device.</li>
+          <li>Read the <a href="/tracedrive-gdpr/">TraceDrive privacy policy</a>.
+            Questions? <a href="mailto:triquinete@gmail.com">triquinete@gmail.com</a></li>
+        </ul>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <div class="footer-brand">
+        <img class="footer-logo" src="/triquinete-logo.png" width="64" height="64" alt="" loading="lazy">
+        <span>TRIQUINETE</span>
+      </div>
+
+      <div class="footer-meta">
+        Independent game &amp; app developer<br>
+        Android / Windows<br>
+        © <span id="year">2026</span> Triquinete
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

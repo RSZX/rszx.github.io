@@ -312,6 +312,22 @@
 
     .card-link:hover { text-decoration: none; }
 
+    .lane-link {
+      color: inherit;
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+
+    .lane-link span,
+    .upcoming .lane-link span {
+      color: var(--accent);
+      font-family: inherit;
+      font-size: 0.8em;
+      letter-spacing: 0;
+    }
+
+    .lane-link:hover { color: var(--accent-bright); }
+
     .card-cta { color: var(--accent-bright); }
 
     .project:hover {
@@ -970,16 +986,16 @@
         <div class="status">
           <div class="status-label">Availability</div>
           <div class="status-list">
-            <a class="status-row" href="https://play.google.com/store/apps/details?id=com.triquinete.raildrop" target="_blank" rel="noopener noreferrer">
+            <a class="status-row" href="/raildrop/">
               RailDrop <span class="pill pill-live">Out now</span>
             </a>
             <a class="status-row" href="/opengrounds/#testers">
               OpenGrounds <span class="pill pill-beta">Free testing</span>
             </a>
-            <a class="status-row" href="#get">
+            <a class="status-row" href="/tracedrive/">
               TraceDrive <span class="pill pill-dev">In development</span>
             </a>
-            <a class="status-row" href="#get">
+            <a class="status-row" href="/strikelab/">
               StrikeLab <span class="pill pill-dev">In development</span>
             </a>
           </div>
@@ -1001,7 +1017,7 @@
             <span class="pill pill-live">Out now</span>
           </div>
 
-          <h2><a class="card-link" href="https://play.google.com/store/apps/details?id=com.triquinete.raildrop" target="_blank" rel="noopener noreferrer">RailDrop</a></h2>
+          <h2><a class="card-link" href="/raildrop/">RailDrop</a></h2>
 
           <p>
             A physics timing game where precision, momentum and timing decide
@@ -1056,7 +1072,7 @@
             <span class="pill pill-dev">In development</span>
           </div>
 
-          <h2>TraceDrive</h2>
+          <h2><a class="card-link" href="/tracedrive/">TraceDrive</a></h2>
 
           <p>
             A motorsport game where the race starts before the car moves:
@@ -1089,7 +1105,7 @@
             <span class="pill pill-dev">In development</span>
           </div>
 
-          <h2>StrikeLab</h2>
+          <h2><a class="card-link" href="/strikelab/">StrikeLab</a></h2>
 
           <p>
             A bowling coach in your phone: film a shot and it tracks the ball
@@ -1128,7 +1144,7 @@
             <span class="pill pill-live">Live</span>
           </div>
 
-          <h3>RailDrop</h3>
+          <h3><a class="lane-link" href="/raildrop/">RailDrop <span aria-hidden="true">↗</span></a></h3>
 
           <p>
             <strong>Free to play</strong> on Google Play for Android phones
@@ -1152,7 +1168,7 @@
             <span class="pill pill-beta">5 spots</span>
           </div>
 
-          <h3>OpenGrounds</h3>
+          <h3><a class="lane-link" href="/opengrounds/">OpenGrounds <span aria-hidden="true">↗</span></a></h3>
 
           <ol class="lane-steps">
             <li>Sign up with your <strong>Google Play email</strong>.</li>
@@ -1177,11 +1193,11 @@
 
           <ul class="upcoming">
             <li>
-              <strong>TraceDrive</strong>
+              <a class="lane-link" href="/tracedrive/"><strong>TraceDrive</strong> <span aria-hidden="true">↗</span></a>
               <span>Android · Windows</span>
             </li>
             <li>
-              <strong>StrikeLab</strong>
+              <a class="lane-link" href="/strikelab/"><strong>StrikeLab</strong> <span aria-hidden="true">↗</span></a>
               <span>Android</span>
             </li>
           </ul>
